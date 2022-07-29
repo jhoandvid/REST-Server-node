@@ -1,25 +1,34 @@
 const express = require('express')
-const  cors = require('cors')
+const cors = require('cors')
 
-class Server{
+const { dbConnection } = require('../database/config')
+
+class Server {
 
 
 
-    constructor(){
-       this.app = express();
+    constructor() {
+        this.app = express();
 
-       this.port=process.env.PORT;
+        this.port = process.env.PORT;
 
-        this.usuariosPath='/api/usuarios';
+        this.usuariosPath = '/api/usuarios';
 
-       //Middlewares: Función que se va a ejecutar siempre  que levantemos la app 
+        //conectar a base de datos
+        this.conectarDB();
+
+        //Middlewares: Función que se va a ejecutar siempre  que levantemos la app 
         this.middlewares();
-       //rutas de aplicación
-       this.routes();
+        //rutas de aplicación
+        this.routes();
+    }
+
+    async conectarDB() {
+        await dbConnection();
     }
 
 
-    middlewares(){
+    middlewares() {
 
         //cors
         this.app.use(cors());
@@ -32,16 +41,16 @@ class Server{
     }
 
 
-    routes(){
+    routes() {
 
         this.app.use(this.usuariosPath, require('../routes/usuarios'))
 
-        
+
 
     }
 
-    listen(){
-        this.app.listen(process.env.PORT,()=>{
+    listen() {
+        this.app.listen(process.env.PORT, () => {
             console.log('Servidor corriendo en', this.port)
         })
     }
@@ -52,4 +61,4 @@ class Server{
 }
 
 
-module.exports=Server;
+module.exports = Server;
