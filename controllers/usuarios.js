@@ -101,6 +101,7 @@ const usuariosPatch=(req, res=response)=>{
 const usuariosDelete=async(req, res=response)=>{
 
     const {id}=req.params;
+    /* const uid=req.uid; */
 
     //Fisicamente borrar de la base de datos.
     // No es lo ideal, a la hora de borrar los datos perderiamos la integridad referencial.
@@ -108,8 +109,15 @@ const usuariosDelete=async(req, res=response)=>{
 
     const usuario=await Usuario.findByIdAndUpdate(id, {estado:false});
 
+
+
+ 
+   
+
     res.json({
         usuario
+        
+        /* uid */
     })
 }
 

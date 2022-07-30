@@ -11,6 +11,8 @@
 const {Schema, model}=require('mongoose');
 
 const UsuarioSchema=Schema({
+
+
     nombre:{
         type:String,
         require:[true, 'El nombre es obligatorio']
@@ -54,7 +56,9 @@ const UsuarioSchema=Schema({
 
 //Para que la contraseña y el __v no lo muestre como respuesta
  UsuarioSchema.methods.toJSON=function (){
-    const {__v, password, ...usuario}=this.toObject();
+
+    const {__v, password, _id, ...usuario}=this.toObject();
+    usuario.uid=_id //cambio de id en el res.json 
     return usuario;
  }
 module.exports=model('Usuario', UsuarioSchema);
