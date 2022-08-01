@@ -33,10 +33,7 @@ const validarJWT=async(req=request, res=response, next)=>{
             msg:'Token no válido - usuario con estado false'
         })
     }
-
     req.usuario=usuario;
-
-
     next();
 
  } catch (error) {

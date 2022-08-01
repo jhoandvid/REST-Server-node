@@ -23,11 +23,8 @@ const usuariosGet=async(req, res=response) => {
     const total=await Usuario.countDocuments(query);  */
 
     //Esto se hace como solución de lo anterior descrito
-    const [total, resp]=await Promise.all([
-        Usuario.countDocuments(query),
-        Usuario.find(query)
-        .skip(Number(desde))
-        .limit(Number(limite))])
+    const [total, resp]=await Promise.all(
+        [Usuario.countDocuments(query),Usuario.find(query).skip(Number(desde)).limit(Number(limite))])
 
     res.json({
         total,
@@ -84,10 +81,6 @@ const usuariosPut=async(req, res=response)=>{
     }
 
     const usuario=await Usuario.findByIdAndUpdate(id,resto);
-
-
-
-
     res.json(usuario)
 }
 

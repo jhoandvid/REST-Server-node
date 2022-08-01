@@ -1,4 +1,4 @@
-const {response, json}=require('express');
+const {response}=require('express');
 const Usuario=require('../models/usuario')
 const bcryptjs=require('bcryptjs');
 const { generarJWT } = require('../helpers/generar-jwt');
@@ -102,7 +102,7 @@ const googleSignIn=async (req, res=response)=>{
         })
         
     } catch (error) {
-        json.status(400).json({
+        res.status(400).json({
             ok:false,
             msg:'El token no se pudo verificar'
         })
